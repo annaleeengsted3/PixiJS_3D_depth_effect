@@ -5,8 +5,8 @@ export class DepthEffect {
   private _width: number;
   private _height: number;
   private _sprite: PIXI.Sprite;
-  private _URLimageToDisplace: string = "./assets/img/OwlTest.png";
-  private _URLDmap: string = "./assets/img/dmaps/OwlTestDmap4.jpg";
+  private _URLimageToDisplace: string = "./assets/img/3.jpg";
+  private _URLDmap: string = "./assets/img/dmaps/3.jpg";
   private _DOMContainer: HTMLElement = document.querySelector(
     ".Module-DepthEffect"
   );
@@ -39,8 +39,8 @@ export class DepthEffect {
     const container = new PIXI.Container();
     this._app.stage.addChild(container);
     this._sprite = PIXI.Sprite.from(this._URLimageToDisplace);
-    this._sprite.width = this._width * 0.5;
-    this._sprite.height = this._sprite.width / (1683 / 1780); //src image dimensions
+    this._sprite.width = this._width * 0.4;
+    this._sprite.height = this._sprite.width / (1266 / 1900); //src image dimensions
     this._sprite.anchor.x = 0.5;
     this._sprite.anchor.y = 0.5;
     this._sprite.x = this._width / 2;
@@ -70,8 +70,8 @@ export class DepthEffect {
   public onResize(width: number, height: number) {
     this._width = width;
     this._height = height;
-    this._sprite.width = this._width * 0.5;
-    this._sprite.height = this._sprite.width / (1683 / 1780);
+    this._sprite.width = this._width * 0.4;
+    this._sprite.height = this._sprite.width / (1266 / 1900);
     this._sprite.x = this._width / 2;
     this._sprite.y = this._height - this._sprite.height / 2;
     this._displacementFilterTexture.width = this._sprite.width;
