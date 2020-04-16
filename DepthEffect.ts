@@ -5,8 +5,8 @@ export class DepthEffect {
   private _width: number;
   private _height: number;
   private _sprite: PIXI.Sprite;
-  private _URLimageToDisplace: string = "./assets/img/test.jpg";
-  private _URLDmap: string = "./assets/img/dmaps/test.jpg";
+  private _URLimageToDisplace: string = "./assets/img/OwlTest.png";
+  private _URLDmap: string = "./assets/img/dmaps/OwlTestDmap4.jpg";
   private _DOMContainer: HTMLElement = document.querySelector(
     ".Module-DepthEffect"
   );
@@ -38,17 +38,14 @@ export class DepthEffect {
   private createSpriteImage() {
     const container = new PIXI.Container();
     this._app.stage.addChild(container);
-
     this._sprite = PIXI.Sprite.from(this._URLimageToDisplace);
-    this._sprite.width = 300;
-    this._sprite.height = 400;
+    this._sprite.width = this._width * 0.5;
+    this._sprite.height = this._sprite.width / (1683 / 1780); //src image dimensions
     this._sprite.anchor.x = 0.5;
     this._sprite.anchor.y = 0.5;
-    this._sprite.x = document.body.offsetWidth / 2;
-    this._sprite.y = document.body.offsetHeight / 2;
+    this._sprite.x = this._width / 2;
+    this._sprite.y = this._height - this._sprite.height / 2;
     this._app.stage.addChild(this._sprite);
-    this._sprite.width = 300;
-    this._sprite.height = 400;
 
     container.addChild(this._sprite);
 
@@ -57,8 +54,8 @@ export class DepthEffect {
 
   private createDMap() {
     this._displacementFilterTexture = PIXI.Sprite.from(this._URLDmap);
-    this._displacementFilterTexture.width = 300;
-    this._displacementFilterTexture.height = 400;
+    this._displacementFilterTexture.width = this._sprite.width;
+    this._displacementFilterTexture.height = this._sprite.height;
     this._displacementFilterTexture.anchor.x = 0.5;
     this._displacementFilterTexture.anchor.y = 0.5;
     this._displacementFilterTexture.position = this._sprite.position;
@@ -69,25 +66,24 @@ export class DepthEffect {
     this._app.stage.addChild(this._displacementFilterTexture);
     this._sprite.filters = [this._displacementFilter];
   }
-  //to do: fix scaling according to ratio!
+  //to do: fix scaling- set tilt according to size
   public onResize(width: number, height: number) {
-    const ratioW = width / this._width;
-    const ratioH = height / this._height;
     this._width = width;
     this._height = height;
-    this._sprite.width = this._sprite.width * ratioW;
-    this._sprite.height = this._sprite.height * ratioH;
-    this._sprite.x = document.body.offsetWidth / 2;
-    this._sprite.y = document.body.offsetHeight / 2;
+    this._sprite.width = this._width * 0.5;
+    this._sprite.height = this._sprite.width / (1683 / 1780);
+    this._sprite.x = this._width / 2;
+    this._sprite.y = this._height - this._sprite.height / 2;
+    this._displacementFilterTexture.width = this._sprite.width;
+    this._displacementFilterTexture.height = this._sprite.height;
     this._displacementFilterTexture.position = this._sprite.position;
-    this._displacementFilterTexture.x = this._sprite.x;
-    this._displacementFilterTexture.y = this._sprite.y;
+
     this._app.renderer.resize(this._width, this._height);
   }
 
   public onMouseMove(eventData: MouseEvent) {
     this.setTilt(
-      25,
+      15,
       eventData.clientX,
       eventData.clientY,
       this._displacementFilter
