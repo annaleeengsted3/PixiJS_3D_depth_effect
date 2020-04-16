@@ -1,9 +1,6 @@
 import ModuleDepthEffect from "./ModuleDepthEffect";
 
 export class App {
-  // id: number;
-  // name: string;
-  // testmodule: testModule;
   private _module: ModuleDepthEffect;
 
   constructor() {
