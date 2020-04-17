@@ -39,12 +39,10 @@ export class DepthEffect {
     const container = new PIXI.Container();
     this._app.stage.addChild(container);
     this._sprite = PIXI.Sprite.from(this._URLimageToDisplace);
-    this._sprite.width = this._width * 0.4;
-    this._sprite.height = this._sprite.width / (1266 / 1900); //src image dimensions
+    this._sprite.height = this._height;
+    this._sprite.width = this._sprite.height * (1266 / 1900); //src image dimensions
     this._sprite.anchor.x = 0.5;
-    this._sprite.anchor.y = 0.5;
     this._sprite.x = this._width / 2;
-    this._sprite.y = this._height - this._sprite.height / 2;
     this._app.stage.addChild(this._sprite);
 
     container.addChild(this._sprite);
@@ -54,10 +52,9 @@ export class DepthEffect {
 
   private createDMap() {
     this._displacementFilterTexture = PIXI.Sprite.from(this._URLDmap);
-    this._displacementFilterTexture.width = this._sprite.width;
     this._displacementFilterTexture.height = this._sprite.height;
+    this._displacementFilterTexture.width = this._sprite.width;
     this._displacementFilterTexture.anchor.x = 0.5;
-    this._displacementFilterTexture.anchor.y = 0.5;
     this._displacementFilterTexture.position = this._sprite.position;
     this._displacementFilter = new PIXI.filters.DisplacementFilter(
       this._displacementFilterTexture
@@ -70,10 +67,9 @@ export class DepthEffect {
   public onResize(width: number, height: number) {
     this._width = width;
     this._height = height;
-    this._sprite.width = this._width * 0.4;
-    this._sprite.height = this._sprite.width / (1266 / 1900);
+    this._sprite.height = this._height;
+    this._sprite.width = this._sprite.height * (1266 / 1900);
     this._sprite.x = this._width / 2;
-    this._sprite.y = this._height - this._sprite.height / 2;
     this._displacementFilterTexture.width = this._sprite.width;
     this._displacementFilterTexture.height = this._sprite.height;
     this._displacementFilterTexture.position = this._sprite.position;
